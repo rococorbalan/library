@@ -7,6 +7,65 @@ body {
     opacity: 0.5;
 }
 
+#outer-dialog {
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    display: none;
+    position: absolute;
+}
+
+dialog {
+    padding: 0;
+    transition: display 0.2s allow-discrete, overlay 0.2s allow-discrete, opacity 0.3s;
+    opacity: 0;
+
+    &[open] {
+        opacity: 1;
+
+        @starting-style {
+        opacity: 0;
+        }
+    }
+}
+
+.form-container {
+    padding: 16px;
+}
+
+#books {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 180px);
+    gap: 30px;
+}
+
+#books div, #books button {
+    height: 252px;
+    border-radius: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    transition: transform 0.3s ease;
+}
+
+#books div:hover, #books button:hover {
+    transform: scale(1.1);
+}
+
+#books div {
+    order: -1;
+}
+
+#books button {
+    order: 1;
+    background-color: transparent;
+    border: 10px solid #ecddae;
+    color: #ecddae;
+}
+
 #books div:nth-of-type(odd) {
     background-color: white;
 }

@@ -9,19 +9,24 @@
     <script src="scripts/script.js" defer></script>
 </head>
 <body>
-    <dialog>
-        <button autofocus>Close</button>
-        <form action="post" id="add-form">
-            <input id="title-input" type="text" placeholder="Title" required>
-            <input id="author-input" type="text" placeholder="Author" required>
-            <input id="pages-input" type="number" min="1" placeholder="Pages" required>
-            <input id="read-input"type="checkbox">
-            <button id="save">Save</button>
-        </form>
-      </dialog>
-      <button id="add">ADD</button>
-      
+    <div class="dialog-container">
+        <dialog>
+            <div class="form-container">
+            <button autofocus>Close</button>
+                <form action="post" id="add-form">
+                    <input id="title-input" type="text" placeholder="Title" required>
+                    <input id="author-input" type="text" placeholder="Author" required>
+                    <input id="pages-input" type="number" min="1" placeholder="Pages" required>
+                    <input id="read-input"type="checkbox">
+                    <button id="save">Save</button>
+                </form>
+            </div>
+          </dialog>
+          
+    </div>
+
     <div id="books">
+        <button id="add">ADD</button>
     </div>
 </body>
 </html>
