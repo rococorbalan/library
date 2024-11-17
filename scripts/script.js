@@ -36,24 +36,40 @@ saveButton.addEventListener("click", (event)=> {
     dialog.close();
     displayBook(addBookToLibrary(titleInput.value, 
         authorInput.value, 
-        pagesInput.value, 
-        readInput.checked));
+        (readInput.checked === true ? "Read" : "Not Read"),
+        pagesInput.value));
 
     dialogForm.reset();
 })
 
 const myLibrary = [];
 
-// Show Every Book
+// Create every element for displaying a book
 function displayBook(book) {
     const bookDiv = document.createElement("div");
+    bookDiv.classList.add("book");
+
+    const bookBody = document.createElement("div");
+    bookBody.classList.add("book-body");
+
+    const bookFooter = document.createElement("div");
+    bookFooter.classList.add("book-footer");
+
         for(let property in book){
-            const bookProperty = document.createElement("p");
+            const bookProperty = document.createElement("span");
             const bookValue = document.createTextNode(book[property]);
-            bookProperty.appendChild(bookValue);
-            bookDiv.appendChild(bookProperty);
+            if(property === "pages"|| property === "isRead"){
+                bookProperty.appendChild(bookValue);
+                bookFooter.appendChild(bookProperty);
+            }else {
+                bookProperty.appendChild(bookValue);
+                bookBody.appendChild(bookProperty);
+            }
+
+            bookDiv.appendChild(bookBody);
+            bookDiv.appendChild(bookFooter);
         }
-        mainDiv.appendChild(bookDiv);
+        mainDiv.insertBefore(bookDiv, mainDiv.firstChild);
 }
 
 // Book Constructor
@@ -67,7 +83,7 @@ function Book(title, author, pages, isRead){
 // Push book to library array
 function addBookToLibrary(title, author, pages, isRead) {
     book = new Book(title, author, pages, isRead);
-    myLibrary.push(book);
+    myLibrary.unshift(book);
     return book;
 }
 

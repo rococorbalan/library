@@ -1,5 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
+
+:root {
+    --blue: #485696;
+    --white: #E7E7E7;
+    --yellow: #F9C784;
+    --orange: #FC7A1E;
+    --red: #F24C00;
+}
+
+* {
+    font-family: "Funnel Display", 'Times New Roman', Times, serif;
+}
+
 body {
-    background-color: #5e4447;
+    background-color: var(--white);
 }
 
 ::backdrop {
@@ -27,6 +41,11 @@ dialog {
         opacity: 0;
         }
     }
+
+    border-radius: 15px;
+    background-color: var(--white);
+    border: none;
+    width: 300px;
 }
 
 .form-container {
@@ -39,14 +58,16 @@ dialog {
     gap: 30px;
 }
 
-#books div, #books button {
+#books>div, #books button {
     height: 252px;
     border-radius: 30px;
+    padding: 5px;
 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
 
     transition: transform 0.3s ease;
 }
@@ -57,19 +78,139 @@ dialog {
 
 #books div {
     order: -1;
+    text-align: center;
 }
 
 #books button {
     order: 1;
     background-color: transparent;
-    border: 10px solid #ecddae;
-    color: #ecddae;
+    color: var(--blue);
 }
 
-#books div:nth-of-type(odd) {
-    background-color: white;
+.book:nth-of-type(odd){
+    background-color: var(--orange);
+    color: white;
 }
 
-#books div:nth-of-type(even){
-    background-color: #ccc;
+#books .book {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.book:nth-of-type(even){
+    background-color: var(--red);
+    color: white;
+}
+
+.book-body {
+    position: absolute;
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    word-wrap: break-word;
+}
+
+.book-body span:first-of-type{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.book-footer{
+    margin-top: auto;
+    padding: 10px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.book-body, .book-footer{
+    max-height: fit-content;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 20px 0 20px;
+    border-bottom: 1px solid #ccc;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.modal-header button{
+    border: none;
+    background-color: var(--white);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+#add {
+    font-size: 5rem;
+    border: 10px solid var(--blue);
+}
+
+fieldset {
+    background-color: var(--white);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 3px;
+
+    font-size: 1.1rem;
+    font-weight: 500;
+
+    padding: 5px 10px 5px 10px;
+}
+
+fieldset:last-of-type{
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+fieldset input {
+    border: 1px solid #ccc;
+    height: 20px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+fieldset input:focus{
+    outline: 1px solid black;
+} 
+
+#add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#add-form button{
+    background-color: var(--blue);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    height: 30px;
+    margin: 0px 10px 0 10px;
+
+    font-weight: 700;
+    font-size: 1.1rem;
+
+    transition: all 0.3s ease;
+}
+
+#add-form button:hover{
+    transform: scale(1.1);
+}
+
+#read-input{
+    width: 25px;
+    height: auto;
+}
+
+#read-input:focus{
+    background-color: var(--white);
+    outline: none;
 }

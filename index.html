@@ -11,13 +11,29 @@
 <body>
     <div class="dialog-container">
         <dialog>
+            <div class="modal-header">
+                <span>New Book</span>
+                <button autofocus>&times;</button>
+            </div>
             <div class="form-container">
-            <button autofocus>Close</button>
                 <form action="post" id="add-form">
-                    <input id="title-input" type="text" placeholder="Title" required>
-                    <input id="author-input" type="text" placeholder="Author" required>
-                    <input id="pages-input" type="number" min="1" placeholder="Pages" required>
-                    <input id="read-input"type="checkbox">
+                    <fieldset>
+                        <label for="title-input">Title</label>
+                        <input id="title-input" type="text" placeholder="Title" required>    
+                    </fieldset>
+                    <fieldset>
+                        <label for="author-input">Author</label>
+                        <input id="author-input" type="text" placeholder="Author" required>
+                    </fieldset>
+                    <fieldset>
+                        <label for="pages-input">Pages</label>
+                        <input id="pages-input" type="number" min="1" placeholder="Pages" required> 
+                    </fieldset>
+                    <fieldset>
+                        <label for="read-input">Already read?</label>
+                        <input id="read-input"type="checkbox">
+                    </fieldset>
+
                     <button id="save">Save</button>
                 </form>
             </div>
@@ -26,7 +42,7 @@
     </div>
 
     <div id="books">
-        <button id="add">ADD</button>
+        <button id="add">&plus;</button>
     </div>
 </body>
 </html>
