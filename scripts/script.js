@@ -40,7 +40,7 @@ saveButton.addEventListener("click", (event)=> {
     dialog.close();
     displayBook((addBookToLibrary(titleInput.value, 
         authorInput.value, 
-        pagesInput.value + " Pages",
+        pagesInput.value + " pages",
         readInput.checked)), colorInput.value);
 
     dialogForm.reset();
@@ -53,7 +53,9 @@ colorInput.addEventListener("input", () => {
     colorContainer.style.backgroundColor = inputColor;
 })
 
-const myLibrary = [];
+const oneNineEightyFour = new Book("1984", "George Orwell", "273 pages", true);
+const myLibrary = [oneNineEightyFour];
+displayBook(myLibrary[0], "#485696");
 
 // Create every element for displaying a book
 function displayBook(book, color) {
