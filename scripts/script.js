@@ -12,7 +12,11 @@ const titleInput = document.getElementById("title-input");
 const authorInput = document.getElementById("author-input");
 const pagesInput = document.getElementById("pages-input");
 const readInput = document.getElementById("read-input");
+
 const saveButton = document.getElementById("save");
+
+const colorInput = document.getElementById("color-input");
+const colorContainer = document.getElementById("color-container");
 
 
 //Open dialog
@@ -34,18 +38,24 @@ dialog.addEventListener("click", (event) => {
 saveButton.addEventListener("click", (event)=> {
     event.preventDefault();
     dialog.close();
-    displayBook(addBookToLibrary(titleInput.value, 
+    displayBook((addBookToLibrary(titleInput.value, 
         authorInput.value, 
-        (readInput.checked === true ? "Read" : "Not Read"),
-        pagesInput.value));
+        pagesInput.value + " Pages",
+        readInput.checked)), colorInput.value);
 
     dialogForm.reset();
+})
+
+// Change color input 
+colorContainer.backgroundColor = colorInput.value
+colorInput.addEventListener("input", () => {
+    colorContainer.style.backgroundColor = colorInput.value;
 })
 
 const myLibrary = [];
 
 // Create every element for displaying a book
-function displayBook(book) {
+function displayBook(book, color) {
     const bookDiv = document.createElement("div");
     bookDiv.classList.add("book");
 
@@ -58,10 +68,19 @@ function displayBook(book) {
         for(let property in book){
             const bookProperty = document.createElement("span");
             const bookValue = document.createTextNode(book[property]);
-            if(property === "pages"|| property === "isRead"){
+            if(property === "isRead"){
+                if (book["isRead"] === true){
+                    bookDiv.classList.add("read")
+                    bookDiv.classList.remove("not-read");
+                }else {
+                    bookDiv.classList.add("not-read")
+                    bookDiv.classList.remove("read");
+                }
+            }
+            if(property === "pages"){
                 bookProperty.appendChild(bookValue);
                 bookFooter.appendChild(bookProperty);
-            }else {
+            }else if(property !== "pages" && property !== "isRead"){
                 bookProperty.appendChild(bookValue);
                 bookBody.appendChild(bookProperty);
             }
@@ -70,6 +89,7 @@ function displayBook(book) {
             bookDiv.appendChild(bookFooter);
         }
         mainDiv.insertBefore(bookDiv, mainDiv.firstChild);
+        bookDiv.style.backgroundColor = color;
 }
 
 // Book Constructor
