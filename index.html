@@ -9,8 +9,10 @@
     <script src="scripts/script.js" defer></script>
 </head>
 <body>
+    
+    <!-- Add dialog -->
     <div class="dialog-container">
-        <dialog>
+        <dialog id="dialog-add">
             <div class="modal-header">
                 <span>New Book</span>
                 <button autofocus>&times;</button>
@@ -40,8 +42,24 @@
                         </div>
                     </fieldset>
 
-                    <button id="save">Save</button>
+                    <button id="save-new">Add</button>
                 </form>
+            </div>
+          </dialog>
+    </div>
+
+    <!-- Edit Dialog -->
+    <div class="dialog-container">
+        <dialog id="dialog-edit">
+            <div class="modal-header">
+                <span>New Book</span>
+                <button autofocus>&times;</button>
+            </div>
+            <div id="form">
+                <h1 id="title-edit">skibidi</h1>
+                <h1 it="author-edit">skibidi</h1>
+                <h1 id="pages-edit">skibidi</h1>
+                <h1 id="read-edit">skibidi</h1>
             </div>
           </dialog>
     </div>

@@ -1,10 +1,13 @@
 // Div where the books are stored
 const mainDiv = document.getElementById("books");
 
-// Dialog
-const dialog = document.querySelector("dialog");
+// Dialog Add
+const dialogAdd = document.getElementById("dialog-add");
 const addButton = document.getElementById("add");
 const closeButton = document.querySelector("dialog button");
+
+// Dialog Edit
+const dialogEdit = document.getElementById("dialog-edit");
 
 // Dialog Form
 const dialogForm = document.getElementById("add-form");
@@ -13,45 +16,48 @@ const authorInput = document.getElementById("author-input");
 const pagesInput = document.getElementById("pages-input");
 const readInput = document.getElementById("read-input");
 
-const saveButton = document.getElementById("save");
+const saveNewBook = document.getElementById("save-new");
 
 const colorInput = document.getElementById("color-input");
 const colorContainer = document.getElementById("color-container");
 
+// Selects everybook
+let bookList = document.querySelectorAll(".book");
+const inputsEdits = document.getElementById("form").children;
+updateBookList();
 
 //Open dialog
 addButton.addEventListener("click", () => {
-    dialog.showModal();
+    dialogAdd.showModal();
 })
 
 //Close dialog
 closeButton.addEventListener("click", () => {
-    dialog.close();
+    dialogAdd.close();
 })
 
-dialog.addEventListener("click", (event) => {
-    if(event.target == dialog){
-        dialog.close();
+dialogAdd.addEventListener("click", (event) => {
+    if(event.target == dialogAdd){
+        dialogAdd.close();
     }
 })
 
-saveButton.addEventListener("click", (event)=> {
+saveNewBook.addEventListener("click", (event)=> {
     event.preventDefault();
-    dialog.close();
+    dialogAdd.close();
     displayBook((addBookToLibrary(titleInput.value, 
         authorInput.value, 
         pagesInput.value + " pages",
         readInput.checked)), colorInput.value);
 
     dialogForm.reset();
+    colorInput.value = "#485696";
+    updateColor();
 })
 
 // Change color input 
 let inputColor = colorInput.value;
-colorInput.addEventListener("input", () => {
-    inputColor = colorInput.value
-    colorContainer.style.backgroundColor = inputColor;
-})
+colorInput.addEventListener("input", updateColor);
 
 const oneNineEightyFour = new Book("1984", "George Orwell", "273 pages", true);
 const myLibrary = [oneNineEightyFour];
@@ -94,6 +100,8 @@ function displayBook(book, color) {
         mainDiv.insertBefore(bookDiv, mainDiv.firstChild);
         bookDiv.style.backgroundColor = color;
         bookDiv.style.color = colorIsDarkAdvanced(inputColor) ? "#FFFFFF" : "#000000";
+
+        updateBookList();
 }
 
 // Book Constructor
@@ -126,4 +134,43 @@ function colorIsDarkAdvanced(bgColor) {
     });
     let L = (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
     return L <= 0.179;
+}
+
+
+function updateColor() {
+    inputColor = colorInput.value;
+    colorContainer.style.backgroundColor = inputColor;
+}
+
+
+function updateBookList() {
+    bookList = document.querySelectorAll(".book");
+
+    dialogEdit.addEventListener("click", (event) => {
+        if(event.target == dialogEdit){
+            dialogEdit.close();
+        }
+    })
+
+    for (const book of bookList){
+        book.removeEventListener("click", updateBookInfo);
+        book.addEventListener("click", updateBookInfo);
+    }
+
+}
+
+function updateBookInfo(event){
+    const book = event.currentTarget;
+    
+    dialogEdit.showModal();
+
+    const bookIndex = (Array.prototype.indexOf.call(bookList, book));
+    const selectedBook = myLibrary[bookIndex];
+    console.log(selectedBook);
+
+    inputsEdits[0].textContent = selectedBook.title;
+    inputsEdits[1].textContent = selectedBook.author;
+    inputsEdits[2].textContent = selectedBook.pages;
+    inputsEdits[3].textContent = selectedBook.isRead;
+
 }
