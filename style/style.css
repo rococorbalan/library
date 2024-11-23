@@ -275,3 +275,11 @@ label[for="color-input"]{
     height: auto;
     filter: brightness(0) saturate(100%) invert(37%) sepia(12%) saturate(2222%) hue-rotate(192deg) brightness(88%) contrast(93%);
 }
+
+#form {
+    display: flex;
+}
+
+#form h1 {
+    font-size: 1.2rem;
+}

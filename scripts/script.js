@@ -4,7 +4,7 @@ const mainDiv = document.getElementById("books");
 // Dialog Add
 const dialogAdd = document.getElementById("dialog-add");
 const addButton = document.getElementById("add");
-const closeButton = document.querySelector("dialog button");
+const closeButton = document.querySelector(".close-add");
 
 // Dialog Edit
 const dialogEdit = document.getElementById("dialog-edit");
@@ -24,14 +24,16 @@ const colorContainer = document.getElementById("color-container");
 // Selects everybook
 let bookList = document.querySelectorAll(".book");
 const inputsEdits = document.getElementById("form").children;
+
+let closeButtons = document.querySelectorAll(".close-edit");
 updateBookList();
 
-//Open dialog
+//Open Add dialog
 addButton.addEventListener("click", () => {
     dialogAdd.showModal();
 })
 
-//Close dialog
+//Close Add dialog
 closeButton.addEventListener("click", () => {
     dialogAdd.close();
 })
@@ -145,6 +147,7 @@ function updateColor() {
 
 function updateBookList() {
     bookList = document.querySelectorAll(".book");
+    closeButtons = document.querySelectorAll(".close-edit");
 
     dialogEdit.addEventListener("click", (event) => {
         if(event.target == dialogEdit){
@@ -153,24 +156,32 @@ function updateBookList() {
     })
 
     for (const book of bookList){
-        book.removeEventListener("click", updateBookInfo);
-        book.addEventListener("click", updateBookInfo);
+        book.removeEventListener("click", showBookInfo);
+        book.addEventListener("click", showBookInfo);
+    }
+
+    for (const button of closeButtons){
+        button.removeEventListener("click", closeBookInfo);
+        button.addEventListener("click", closeBookInfo);
     }
 
 }
 
-function updateBookInfo(event){
+function showBookInfo(event){
     const book = event.currentTarget;
     
     dialogEdit.showModal();
 
     const bookIndex = (Array.prototype.indexOf.call(bookList, book));
     const selectedBook = myLibrary[bookIndex];
-    console.log(selectedBook);
 
     inputsEdits[0].textContent = selectedBook.title;
     inputsEdits[1].textContent = selectedBook.author;
     inputsEdits[2].textContent = selectedBook.pages;
     inputsEdits[3].textContent = selectedBook.isRead;
 
+}
+
+function closeBookInfo(event){
+    dialogEdit.close();
 }
