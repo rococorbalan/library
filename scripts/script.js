@@ -25,8 +25,12 @@ const colorContainer = document.getElementById("color-container");
 let bookList = document.querySelectorAll(".book");
 const inputsEdits = document.getElementById("form").children;
 
+let bookTitles = document.querySelectorAll(".book-title");
+let isReadEdits = document.querySelectorAll(".read-edit");
+
 let closeButtons = document.querySelectorAll(".close-edit");
-updateBookList();
+
+let saveEditButton = document.querySelector(".save-edit");
 
 //Open Add dialog
 addButton.addEventListener("click", () => {
@@ -147,7 +151,6 @@ function updateColor() {
 
 function updateBookList() {
     bookList = document.querySelectorAll(".book");
-    closeButtons = document.querySelectorAll(".close-edit");
 
     dialogEdit.addEventListener("click", (event) => {
         if(event.target == dialogEdit){
@@ -175,13 +178,55 @@ function showBookInfo(event){
     const bookIndex = (Array.prototype.indexOf.call(bookList, book));
     const selectedBook = myLibrary[bookIndex];
 
-    inputsEdits[0].textContent = selectedBook.title;
-    inputsEdits[1].textContent = selectedBook.author;
-    inputsEdits[2].textContent = selectedBook.pages;
-    inputsEdits[3].textContent = selectedBook.isRead;
+    inputsEdits[0].textContent = selectedBook.author;
+    inputsEdits[1].textContent = selectedBook.pages;
+    
+    for(const title of bookTitles){
+        title.textContent = selectedBook.title;
+    }
+
+    for (const checkbox of isReadEdits){
+        checkbox.checked = selectedBook.isRead;
+        saveEditButton.isChecked = selectedBook.isRead;
+        checkbox.removeEventListener("input", updateBookInfo);
+        checkbox.addEventListener("input", updateBookInfo);
+    }
+
+    saveEditButton.editBookIndex = bookIndex;
+
+    saveEditButton.removeEventListener("click", saveEdit);
+    saveEditButton.addEventListener("click", saveEdit);
 
 }
 
+
 function closeBookInfo(event){
     dialogEdit.close();
+}
+
+
+function updateBookInfo(event){
+    saveEditButton.isChecked = event.currentTarget.checked;
+}
+
+
+function saveEdit(event) {
+    let bookIndex = event.currentTarget.editBookIndex;
+    let selectedBook = myLibrary[bookIndex];
+    let bookElement = bookList[bookIndex];
+
+    selectedBook.isRead = event.currentTarget.isChecked;
+    toggleReadStatus(selectedBook.isRead, bookElement);
+    dialogEdit.close();
+}
+
+
+function toggleReadStatus(value, bookElement) {
+    if(value) {
+        bookElement.classList.remove("not-read");
+        bookElement.classList.add("read");
+    }else if (!value) {
+        bookElement.classList.remove("read");
+        bookElement.classList.add("not-read");
+    }
 }
