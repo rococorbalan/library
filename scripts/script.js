@@ -26,7 +26,7 @@ let bookList = document.querySelectorAll(".book");
 const inputsEdits = document.getElementById("form").children;
 
 let bookTitles = document.querySelectorAll(".book-title");
-let isReadEdits = document.querySelectorAll(".read-edit");
+let isReadEdits = document.querySelectorAll("#read-edit");
 
 let closeButtons = document.querySelectorAll(".close-edit");
 
