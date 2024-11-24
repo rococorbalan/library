@@ -21,7 +21,7 @@ const saveNewBook = document.getElementById("save-new");
 const colorInput = document.getElementById("color-input");
 const colorContainer = document.getElementById("color-container");
 
-// Selects everybook
+// Selects every book and elements inside the edit dialog
 let bookList = document.querySelectorAll(".book");
 const inputsEdits = document.getElementById("form").children;
 
@@ -31,6 +31,7 @@ let isReadEdits = document.querySelectorAll(".read-edit");
 let closeButtons = document.querySelectorAll(".close-edit");
 
 let saveEditButton = document.querySelector(".save-edit");
+let removeButton = document.querySelector(".remove-book")
 
 //Open Add dialog
 addButton.addEventListener("click", () => {
@@ -197,6 +198,12 @@ function showBookInfo(event){
     saveEditButton.removeEventListener("click", saveEdit);
     saveEditButton.addEventListener("click", saveEdit);
 
+    removeButton.editBookIndex = bookIndex;
+    removeButton.bookElement = bookList[bookIndex];
+
+    removeButton.removeEventListener("click", removeBook);
+    removeButton.addEventListener("click", removeBook);
+
 }
 
 
@@ -229,4 +236,16 @@ function toggleReadStatus(value, bookElement) {
         bookElement.classList.remove("read");
         bookElement.classList.add("not-read");
     }
+}
+
+
+function removeBook(event) {
+    let bookIndex = event.currentTarget.editBookIndex;
+    let bookElement = event.currentTarget.bookElement
+    
+    bookElement.parentNode.removeChild(bookElement);
+    myLibrary.splice(bookIndex, 1);
+    bookList = document.querySelectorAll(".book");
+
+    dialogEdit.close();
 }
