@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
 
-    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="style/style.css">
     <script src="scripts/script.js" defer></script>
 </head>
 <body>
@@ -21,15 +21,15 @@
                 <form action="post" id="add-form">
                     <fieldset>
                         <label for="title-input">Title</label>
-                        <input id="title-input" type="text" placeholder="Title" required>    
+                        <input id="title-input" type="text" placeholder="Title" class="check" required>    
                     </fieldset>
                     <fieldset>
                         <label for="author-input">Author</label>
-                        <input id="author-input" type="text" placeholder="Author" required>
+                        <input id="author-input" type="text" placeholder="Author" class="check" required>
                     </fieldset>
                     <fieldset>
                         <label for="pages-input">Pages</label>
-                        <input id="pages-input" type="number" min="1" placeholder="Pages" required> 
+                        <input id="pages-input" type="number" min="1" placeholder="Pages" class="check" required> 
                     </fieldset>
                     <fieldset>
                         <label for="read-input">Already read?</label>
@@ -42,7 +42,7 @@
                         </div>
                     </fieldset>
 
-                    <button id="save-new" >Add</button>
+                    <button id="save-new" type="submit">Add</button>
                 </form>
             </div>
           </dialog>

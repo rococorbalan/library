@@ -3,8 +3,6 @@
 :root {
     --blue: #485696;
     --white: #E7E7E7;
-    --yellow: #F9C784;
-    --orange: #FC7A1E;
     --red: #F24C00;
 }
 
@@ -224,8 +222,13 @@ fieldset input:focus{
     transition: all 0.3s ease;
 }
 
-#add-form button:hover{
+#add-form button:enabled:hover{
     transform: scale(1.1);
+}
+
+#add-form button:disabled,
+#add-form button[disabled]{
+    background-color: #828699;
 }
 
 #read-input{

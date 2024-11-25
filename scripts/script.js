@@ -16,6 +16,7 @@ const authorInput = document.getElementById("author-input");
 const pagesInput = document.getElementById("pages-input");
 const readInput = document.getElementById("read-input");
 
+const inputsForCheck = document.querySelectorAll(".check");
 const saveNewBook = document.getElementById("save-new");
 
 const colorInput = document.getElementById("color-input");
@@ -36,16 +37,21 @@ let removeButton = document.querySelector(".remove-book")
 //Open Add dialog
 addButton.addEventListener("click", () => {
     dialogAdd.showModal();
+    inputsForCheck.forEach(input => {
+        checkInput(input);
+    })
 })
 
 //Close Add dialog
 closeButton.addEventListener("click", () => {
     dialogAdd.close();
+    dialogForm.reset();
 })
 
 dialogAdd.addEventListener("click", (event) => {
     if(event.target == dialogAdd){
         dialogAdd.close();
+        dialogForm.reset();
     }
 })
 
@@ -69,6 +75,18 @@ colorInput.addEventListener("input", updateColor);
 const oneNineEightyFour = new Book("1984", "George Orwell", "273 pages", true);
 const myLibrary = [oneNineEightyFour];
 displayBook(myLibrary[0], "#485696");
+
+
+//Check input
+inputsForCheck.forEach(input => {
+    input.addEventListener("input", () => {
+        checkInput(input);
+        if(checkInput(inputsForCheck[0]) && checkInput(inputsForCheck[1]) && (checkInput(inputsForCheck[2]))){
+            saveNewBook.disabled = false;
+        }
+    })
+})
+
 
 // Create every element for displaying a book
 function displayBook(book, color) {
@@ -249,3 +267,30 @@ function removeBook(event) {
 
     dialogEdit.close();
 }
+
+
+function checkInput(input) {
+    if(input.id === "pages-input"){
+        if(input.value <= 0) {
+            input.style.outlineColor = "#F24C00";
+            input.style.outlineStyle = "solid";
+            input.style.outlineWidth = "1px";
+            saveNewBook.disabled = true;
+            return false;
+        }else {
+            input.style.outline = "none";
+            return true;
+        } 
+    }
+    if(input.value === "") {
+        input.style.outlineColor = "#F24C00";
+        input.style.outlineStyle = "solid";
+        input.style.outlineWidth = "1px";
+        saveNewBook.disabled = true;
+        return false;
+    }else {
+        input.style.outline = "none";
+        return true;
+    }
+}
+
