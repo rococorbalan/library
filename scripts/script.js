@@ -277,9 +277,6 @@ function checkInput(input) {
             input.style.outlineWidth = "1px";
             saveNewBook.disabled = true;
             return false;
-        }else {
-            input.style.outline = "none";
-            return true;
         } 
     }
     if(input.value === "") {
