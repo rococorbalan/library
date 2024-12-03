@@ -34,6 +34,23 @@ let closeButtons = document.querySelectorAll(".close-edit");
 let saveEditButton = document.querySelector(".save-edit");
 let removeButton = document.querySelector(".remove-book")
 
+
+// Book class
+class Book {
+    constructor(title, author, pages, isRead){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead;
+    }
+
+    addToLibrary(book) {
+        myLibrary.unshift(book);
+        return book
+    }
+}
+
+
 //Open Add dialog
 addButton.addEventListener("click", () => {
     dialogAdd.showModal();
@@ -58,10 +75,8 @@ dialogAdd.addEventListener("click", (event) => {
 saveNewBook.addEventListener("click", (event)=> {
     event.preventDefault();
     dialogAdd.close();
-    displayBook((addBookToLibrary(titleInput.value, 
-        authorInput.value, 
-        pagesInput.value + " pages",
-        readInput.checked)), colorInput.value);
+    let book = new Book(titleInput.value, authorInput.value, pagesInput.value + " pages",readInput.checked)
+    displayBook(book.addToLibrary(book), colorInput.value);
 
     dialogForm.reset();
     colorInput.value = "#485696";
@@ -129,20 +144,21 @@ function displayBook(book, color) {
         updateBookList();
 }
 
-// Book Constructor
-function Book(title, author, pages, isRead){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead;
-}
+// // Book Constructor
+// function Book(title, author, pages, isRead){
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.isRead = isRead;
+// }
 
-// Push book to library array
-function addBookToLibrary(title, author, pages, isRead) {
-    book = new Book(title, author, pages, isRead);
-    myLibrary.unshift(book);
-    return book;
-}
+// // Push book to library array
+// function addBookToLibrary(title, author, pages, isRead) {
+//     book = new Book(title, author, pages, isRead);
+//     myLibrary.unshift(book);
+//     return book;
+// }
+
 
 // Calculate if need black or white font
 function colorIsDarkAdvanced(bgColor) {
